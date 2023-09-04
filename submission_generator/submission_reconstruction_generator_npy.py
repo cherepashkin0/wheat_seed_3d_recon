@@ -7,6 +7,11 @@ cur_dir = os.getcwd()
 
 
 def main():
+    predicted_recon_points_test, _ = recon_generation(cur_dir)
+    save_zip_npy(predicted_recon_points_test)
+
+
+def recon_generation(cur_dir):
     """generate random submission"""
     df = pd.DataFrame()
     order_dict = load_order_dict(cur_dir)
@@ -28,15 +33,19 @@ def main():
     corrected_volume = perform_correction(predicted_volume, gt_volume)
     df['index'] = order_dict['test'].astype(int)
     df['volume'] = corrected_volume
-    Path(os.path.join(cur_dir, 'submission/reconstruction')).mkdir(parents=True, exist_ok=True)
-
     df.to_csv(os.path.join(cur_dir, 'submission/reconstruction/test_submission.csv'), index=False)
-    np.save(os.path.join(cur_dir, 'submission/reconstruction/test_submission.npy'), predicted_recon_points_test.astype(np.float32))
+    return predicted_recon_points_test, order_dict
+
+
+def save_zip_npy(predicted_recon_points_test):
+    Path(os.path.join(cur_dir, 'submission/reconstruction')).mkdir(parents=True, exist_ok=True)
+    np.save(os.path.join(cur_dir, 'submission/reconstruction/test_submission.npy'),
+            predicted_recon_points_test.astype(np.float32))
     create_zip_archive([os.path.join(cur_dir, 'submission/reconstruction/test_submission.csv'),
                         os.path.join(cur_dir, 'submission/reconstruction/test_submission.npy')],
-                        ['test_submission.csv', 'test_submission.npy'], os.path.join(cur_dir, 'submission/reconstruction.zip'))
-    print('submission file was saved to {}'.format(os.path.join(cur_dir, 'submission/reconstruction.zip')))
-
+                        ['test_submission.csv', 'test_submission.npy'],
+                       os.path.join(cur_dir, 'submission/reconstruction_npy.zip'))
+    print('submission file was saved to {}'.format(os.path.join(cur_dir, 'submission/reconstruction_npy.zip')))
 
 
 def f2points(arr, dirs):
