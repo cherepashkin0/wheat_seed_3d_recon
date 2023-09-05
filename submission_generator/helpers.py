@@ -6,7 +6,7 @@ def create_zip_archive(input_pathes, input_names, output_zip_path):
     """create zip archive from files with input_pathes, with names input_names, to file output_zip_path"""
     if os.path.exists(output_zip_path):
         os.remove(output_zip_path)
-    with zipfile.ZipFile(output_zip_path, 'w') as zf:
+    with zipfile.ZipFile(output_zip_path, 'w', compression=zipfile.ZIP_BZIP2) as zf:
         for input_path, input_name in zip(input_pathes, input_names):
             zf.write(input_path, arcname=input_name)
 

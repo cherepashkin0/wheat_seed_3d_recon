@@ -6,4 +6,4 @@ wheat_seed_3d_recon
 3. To create submission files for track #2 "reconstruction" with numpy file, run the command `python submission_generator/submission_reconstruction_generator_npy.py`
 4. To create submission files for track #2 "reconstruction" with ply files, run the command `python submission_generator/submission_reconstruction_generator_ply.py`
 
-This will generate submission with random numbers. To generate submission with actual values, substitute corresponding lines with values from your model prediction. 
+This will generate submission with random numbers. To generate submission with actual values, substitute lines for random generation with lines with loading of prediction values of your model. 
