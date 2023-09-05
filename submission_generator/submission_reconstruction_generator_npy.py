@@ -33,6 +33,7 @@ def recon_generation(cur_dir):
     corrected_volume = perform_correction(predicted_volume, gt_volume)
     df['index'] = order_dict['test'].astype(int)
     df['volume'] = corrected_volume
+    Path(os.path.join(cur_dir, 'submission/reconstruction')).mkdir(parents=True, exist_ok=True)
     df.to_csv(os.path.join(cur_dir, 'submission/reconstruction/test_submission.csv'), index=False)
     return predicted_recon_points_test, order_dict
 
