@@ -57,6 +57,7 @@ def f2points(arr, dirs):
     return points
 
 
+# CustomVolumeCalculationProcedure
 def points_to_volume(points, triangles):
     """calculate volume for each point cloud in points"""
     volume_pred = np.full(len(points), np.nan)
