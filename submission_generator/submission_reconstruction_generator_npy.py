@@ -49,10 +49,12 @@ def save_zip_npy(predicted_recon_points_test):
     print('submission file was saved to {}'.format(os.path.join(cur_dir, 'submission/reconstruction_npy.zip')))
 
 
-def f2points(arr, dirs):
+def f2points(arr, directions):
     """converts f values to points"""
     points = np.einsum('ij,jk->ikj', arr,
-              np.stack([np.cos(dirs[0]) * np.sin(dirs[1]), np.sin(dirs[0]) * np.sin(dirs[1]), np.cos(dirs[1])],
+              np.stack([np.cos(directions[0]) * np.sin(directions[1]),
+                        np.sin(directions[0]) * np.sin(directions[1]),
+                        np.cos(directions[1])],
                        axis=-1))
     return points
 
